@@ -1,4 +1,4 @@
-TRUNCATE TABLE signatures; -- tæmir töflu!
+TRUNCATE TABLE signatures RESTART IDENTITY CASCADE;
 INSERT INTO signatures (name, nationalId, comment, anonymous) VALUES ('Andri Már', '0000000000', 'x', false);
 INSERT INTO signatures (name, nationalId, comment, anonymous) VALUES ('Andri Þór', '0000000001', '', false);
 INSERT INTO signatures (name, nationalId, comment, anonymous) VALUES ('Anna Guðrún', '0000000002', '', false);
