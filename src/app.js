@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
 
-app.get('/', (req, res, next) => {
+app.get('/', (_req, res, next) => {
   if(app.locals.bool){
     res.render('villa');
     app.locals.bool = false; //Eg geri mer grein fyrir ad ef ytt er a reload þa renderast skraning. Eg tel thad vera goda virkni samt og vil thvi halda thvi
@@ -34,12 +34,12 @@ app.get('/', (req, res, next) => {
   else next();
 })
 
-app.get('/', async (req, res) => {
+app.get('/', async (_req, res) => {
   try {
     const result = await query('SELECT * FROM signatures');
     res.render('skraning', { result });
     app.locals.listinn = null;
-    app.locals.data = ['','',''];
+    app.locals.data = [];
   } catch (e) {
     console.error('Error selecting', e);
   }

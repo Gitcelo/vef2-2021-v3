@@ -16,6 +16,8 @@ module.exports = {
     // package.json skjal í ./src
     'import/no-extraneous-dependencies': ['error', { packageDir: './' }],
 
+    'import/no-cycle': 0,
+
     // Leyfum console.info, warn og error
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
   },

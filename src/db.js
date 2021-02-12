@@ -22,13 +22,6 @@ pool.on('error', (err) => {
 
 export async function query(q, values=[]) {
   const client = await pool.connect();
-
-  //try {
     const result = await client.query(q, values);
     return result;
- // } catch(e) {
-  //  return e;
- // } finally {
-   // client.release();
- // }
 }

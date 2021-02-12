@@ -2,6 +2,7 @@ import express from 'express';
 import { app } from './app.js'
 import { body, validationResult } from 'express-validator';
 import { query } from './db.js';
+import xss from 'xss';
 
 // TODO skráningar virkni
 const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
@@ -49,7 +50,7 @@ function valid(req, res, next) {
       anon=''
     } = req.body;
     const checked = anon.localeCompare('on')===0 ? 'checked':'';
-    app.locals.data = [nafn, kt, ath, checked];
+    app.locals.data = [xss(nafn), xss(kt), xss(ath), checked];
     app.locals.listinn = errors.array().map(i => i.msg);
     res.redirect('/');
   }
@@ -67,13 +68,11 @@ async function insertion(req, res) {
     anon,
   } = req.body;
 
-  let result;
-
   try {
     if (anon === 'on')
-      result = await query('INSERT INTO signatures (name, nationalID, comment) VALUES ($1, $2, $3)', ['Nafnlaust', kt, ath]);
+      await query('INSERT INTO signatures (name, nationalID, comment) VALUES ($1, $2, $3)', ['Nafnlaust', xss(kt), xss(ath)]);
     else
-      result = await query('INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1, $2, $3, $4)', [nafn, kt, ath, false]);
+      await query('INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1, $2, $3, $4)', [xss(nafn), xss(kt), xss(ath), false]);
     res.redirect('/');
   } catch (e) {
     app.locals.bool = true;
