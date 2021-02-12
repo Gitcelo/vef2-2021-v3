@@ -5,6 +5,7 @@ dotenv.config();
 
 const {
   DATABASE_URL: connectionString,
+  NODE_ENV: nodeEnv = '',
 } = process.env;
 
 if (!connectionString) {
@@ -12,8 +13,10 @@ if (!connectionString) {
   process.exit(1);
 }
 
+const ssl = nodeEnv !== 'development' ? { rejectUnauthorized: false } : false;
+
 // TODO gagnagrunnstengingar
-const pool = new pg.Pool({ connectionString });
+const pool = new pg.Pool({ connectionString, ssl });
 
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
