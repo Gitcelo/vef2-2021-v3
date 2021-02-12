@@ -20,8 +20,8 @@ pool.on('error', (err) => {
   process.exit(-1);
 });
 
-export async function query(q, values=[]) {
+export async function query(q, values = []) {
   const client = await pool.connect();
-    const result = await client.query(q, values);
-    return result;
+  const result = await client.query(q, values);
+  return result;
 }

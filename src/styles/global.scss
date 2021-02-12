@@ -5,19 +5,22 @@ body {
 }
 
 h1 {
-  margin: auto;
-  text-align: center;
-  margin-top: $margin-top;
-  margin-bottom: $margin-bottom;
   font-size: 2*$font-size;
+  margin: auto;
+  margin-bottom: $margin-bottom;
+  margin-top: $margin-top;
+  text-align: center;
 }
 
 hr {
   border: dotted;
 }
 
-table, th, td {
-  border: 1px solid black;
+table,
+th,
+tr,
+td {
+  border: $pixill solid #000;
   border-collapse: collapse;
 }
 

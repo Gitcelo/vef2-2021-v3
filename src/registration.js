@@ -1,17 +1,56 @@
 import express from 'express';
-import { app } from './app.js'
 import { body, validationResult } from 'express-validator';
-import { query } from './db.js';
 import xss from 'xss';
+import { app } from './app.js';
+import { query } from './db.js';
 
 // TODO skráningar virkni
 const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
 
 export function time(d) {
-  return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`
+  return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`;
 }
 
 export const router = express.Router();
+
+function valid(req, res, next) {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    const {
+      nafn,
+      kt,
+      ath,
+      anon = '',
+    } = req.body;
+    const checked = anon.localeCompare('on') === 0 ? 'checked' : '';
+    app.locals.data = [xss(nafn), xss(kt), xss(ath), checked];
+    app.locals.listinn = errors.array().map((i) => i.msg);
+    res.redirect('/');
+  } else {
+    app.locals.listinn = null;
+    return next();
+  }
+  return null;
+}
+
+async function insertion(req, res) {
+  const {
+    nafn,
+    kt,
+    ath,
+    anon,
+  } = req.body;
+
+  try {
+    if (anon === 'on') await query('INSERT INTO signatures (name, nationalID, comment) VALUES ($1, $2, $3)', ['Nafnlaust', xss(kt), xss(ath)]);
+    else await query('INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1, $2, $3, $4)', [xss(nafn), xss(kt), xss(ath), false]);
+    res.redirect('/');
+  } catch (e) {
+    app.locals.bool = true;
+    res.redirect('/');
+  }
+}
 
 router.post('/post',
   body('nafn')
@@ -36,46 +75,6 @@ router.post('/post',
   body('kt').blacklist('-'),
   body('ath').trim().escape(),
 
-  async (req, res) => { insertion(req, res); }
-)
-
-function valid(req, res, next) {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    const {
-      nafn,
-      kt,
-      ath,
-      anon=''
-    } = req.body;
-    const checked = anon.localeCompare('on')===0 ? 'checked':'';
-    app.locals.data = [xss(nafn), xss(kt), xss(ath), checked];
-    app.locals.listinn = errors.array().map(i => i.msg);
-    res.redirect('/');
-  }
-  else {
-    app.locals.listinn = null;
-    return next();
-  }
-}
-
-async function insertion(req, res) {
-  const {
-    nafn,
-    kt,
-    ath,
-    anon,
-  } = req.body;
-
-  try {
-    if (anon === 'on')
-      await query('INSERT INTO signatures (name, nationalID, comment) VALUES ($1, $2, $3)', ['Nafnlaust', xss(kt), xss(ath)]);
-    else
-      await query('INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1, $2, $3, $4)', [xss(nafn), xss(kt), xss(ath), false]);
-    res.redirect('/');
-  } catch (e) {
-    app.locals.bool = true;
-    res.redirect('/');
-  }
-}
+  async (req, res) => {
+    insertion(req, res);
+  });

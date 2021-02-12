@@ -24,15 +24,13 @@ app.locals.bool = false;
 
 app.use(express.urlencoded({ extended: true }));
 
-const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
-
 app.get('/', (_req, res, next) => {
-  if(app.locals.bool){
+  if (app.locals.bool) {
     res.render('villa');
-    app.locals.bool = false; //Eg geri mer grein fyrir ad ef ytt er a reload þa renderast skraning. Eg tel thad vera goda virkni samt og vil thvi halda thvi
-  }
-  else next();
-})
+    app.locals.bool = false; // Eg geri mer grein fyrir ad ef ytt er a reload þa renderast skraning.
+    // Eg tel thad vera goda virkni samt og vil thvi halda thvi
+  } else next();
+});
 
 app.get('/', async (_req, res) => {
   try {
