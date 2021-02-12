@@ -1,66 +1,68 @@
 <%- include('header') -%>
 
-<main>
+  <main>
 
-  <h1>Undirskriftalisti</h1>
-  <section class='grid'>
-    <form method="post" action="/post" enctype="application/x-www-form-urlencoded" class="form-section">
-      <div class="form-row col-12">
-        <label for="nafn" class="form-fsz">Nafn*</label>
-        <input type="text" id="nafn" name="nafn" value="<%= locals.data[0] %>" class="col-10">
-      </div>
-      <div class="form-row col-12">
-        <label for="kt" class="form-fsz">Kennitala*</label>
-        <input type="text" id="kt" name="kt" value="<%= locals.data[1] %>" class="col-10">
-      </div>
-      <div class="form-row col-12">
-        <label for="ath" class="form-fsz">Athugasemd:</label>
-        <textarea id="ath" rows="4" name="ath" class="col-10"><%= locals.data[2] %></textarea>
-      </div>
-      <div class="form-check">
-        <input type="checkbox" id="anon" name="anon" <%= locals.data[3]  %>>
-        <label for="anon">Ekki birta nafn á lista</label>
-      </div>
-      <input type="submit" value="Skrifa undir" class="form-width">
-    </form>
-    <% if (locals.listinn) { %>
-      <div class='ul-center col-7'>
-      <ul>
-        <% locals.listinn.forEach(stak => { %>
-          <li><%= stak %></li>
-        <% }); %>
-      </ul>
-    </div>
-    <% } %>
-    <hr>
-  </section>
+    <h1>Undirskriftalisti</h1>
+    <section class='grid'>
+      <form method="post" action="/post" enctype="application/x-www-form-urlencoded" class="form-section">
+        <div class="form-row col-12">
+          <label for="nafn" class="form-fsz">Nafn*</label>
+          <input type="text" id="nafn" name="nafn" value="<%= locals.data[0] %>" class="col-10">
+        </div>
+        <div class="form-row col-12">
+          <label for="kt" class="form-fsz">Kennitala*</label>
+          <input type="text" id="kt" name="kt" value="<%= locals.data[1] %>" class="col-10">
+        </div>
+        <div class="form-row col-12">
+          <label for="ath" class="form-fsz">Athugasemd:</label>
+          <textarea id="ath" rows="4" name="ath" class="col-10"><%= locals.data[2] %></textarea>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" id="anon" name="anon" <%=locals.data[3] %>>
+          <label for="anon">Ekki birta nafn á lista</label>
+        </div>
+        <input type="submit" value="Skrifa undir" class="form-width">
+      </form>
+      <% if (locals.listinn) { %>
+        <div class='ul-center col-7'>
+          <ul>
+            <% locals.listinn.forEach(stak=> { %>
+              <li>
+                <%= stak %>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+        <% } %>
+          <hr>
+    </section>
 
-  <section class='grid'>
+    <section class='grid'>
 
-    <table class='col-12'>
+      <table class='col-12'>
 
-      <tr>
+        <tr>
           <th>Dags</th>
           <th>Nafn</th>
           <th>Athugasemd</th>
-      </tr>
+        </tr>
 
-      <% result.rows.forEach(row => { %>
-      <tr>
-        <td>
-          <%= locals.time(row.signed) %>
-        </td>
-        <td>
-          <%= row.name %>
-        </td>
-        <td>
-          <%= row.comment %>
-        </td>
-      </tr>
-      <% }) %>
-  </table>
-  </section>
+        <% result.rows.forEach(row=> { %>
+          <tr>
+            <td>
+              <%= locals.time(row.signed) %>
+            </td>
+            <td>
+              <%= row.name %>
+            </td>
+            <td>
+              <%= row.comment %>
+            </td>
+          </tr>
+          <% }) %>
+      </table>
+    </section>
 
-</main>
+  </main>
 
-<%- include('footer') -%>
+  <%- include('footer') -%>

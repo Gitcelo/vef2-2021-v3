@@ -16,6 +16,11 @@ hr {
   border: dotted;
 }
 
+table {
+  table-layout: fixed;
+  word-break: break-word;
+}
+
 table,
 th,
 tr,
@@ -26,4 +31,9 @@ td {
 
 ul {
   margin-top: 0;
+}
+
+.comm {
+  display: flex;
+  flex-direction: column;
 }
