@@ -42,6 +42,14 @@ function valid(req, res, next) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
+    const {
+      nafn,
+      kt,
+      ath,
+      anon=''
+    } = req.body;
+    const checked = anon.localeCompare('on')===0 ? 'checked':'';
+    app.locals.data = [nafn, kt, ath, checked];
     app.locals.listinn = errors.array().map(i => i.msg);
     res.redirect('/');
   }
@@ -68,6 +76,7 @@ async function insertion(req, res) {
       result = await query('INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1, $2, $3, $4)', [nafn, kt, ath, false]);
     res.redirect('/');
   } catch (e) {
-    res.render('villa');
+    app.locals.bool = true;
+    res.redirect('/');
   }
 }

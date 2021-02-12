@@ -6,14 +6,6 @@
   overflow: hidden;
 }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  margin-left: -$gutter/2;
-  margin-right: -$gutter/2;
-}
-
 .col {
   padding-left: $gutter/2;
   padding-right: $gutter/2;
