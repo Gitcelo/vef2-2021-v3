@@ -21,6 +21,7 @@ app.locals.time = (d) => time(d);
 app.locals.listinn = null;
 app.locals.data = [];
 app.locals.bool = false;
+app.locals.color = ['', '', ''];
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -38,6 +39,7 @@ app.get('/', async (_req, res) => {
     res.render('skraning', { result });
     app.locals.listinn = null;
     app.locals.data = [];
+    app.locals.color = ['', '', ''];
   } catch (e) {
     console.error('Error selecting', e);
   }

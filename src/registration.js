@@ -26,6 +26,20 @@ function valid(req, res, next) {
     const checked = anon.localeCompare('on') === 0 ? 'checked' : '';
     app.locals.data = [xss(nafn), xss(kt), xss(ath), checked];
     app.locals.listinn = errors.array().map((i) => i.msg);
+    const cols = errors.array().map((i) => i.param);
+    cols.forEach((col) => {
+      switch (col) {
+        case 'nafn':
+          app.locals.color[0] = 'red';
+          break;
+        case 'kt':
+          app.locals.color[1] = 'red';
+          break;
+        default:
+          app.locals.color[2] = 'red';
+          break;
+      }
+    });
     res.redirect('/');
   } else {
     app.locals.listinn = null;
