@@ -36,7 +36,8 @@ app.get('/', (_req, res, next) => {
 app.get('/', async (_req, res) => {
   try {
     const result = await query('SELECT * FROM signatures');
-    res.render('skraning', { result });
+    const cnt = await query('SELECT COUNT(*) AS count FROM signatures');
+    res.render('skraning', { result, cnt });
     app.locals.listinn = null;
     app.locals.data = [];
     app.locals.color = ['', '', ''];
