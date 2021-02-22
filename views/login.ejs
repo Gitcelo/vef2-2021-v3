@@ -3,9 +3,9 @@
   <main>
     <h1>Innskráning</h1>
     <section class='grid'>
-      <form method="post" action="/admin" enctype="application/x-www-form-urlencoded" class="form-section">
+      <form method="post" action="/login" enctype="application/x-www-form-urlencoded" class="form-section">
         <div class="form-row col-12">
-          <label for="username" class="form-fsz">Notendanafn</label>
+          <label for="username" class="form-fsz">Notandanafn</label>
           <input type="text" id="username" name="username" value="<%= locals.data[0] %>"
             class="col-10 <%= locals.color[0] %>">
         </div>
@@ -13,6 +13,7 @@
           <label for="password" class="form-fsz">Lykilorð</label>
           <input type="text" id="password" name="password" value="<%= locals.data[1] %>" class="col-10 <%= locals.color[1] %>">
         </div>
+        <p class='centered red-font'><%= locals.message %></p>
         <input type="submit" value="Innskrá" class="form-width">
       </form>
       <a href='<%= '/' %>'>Til baka</a>

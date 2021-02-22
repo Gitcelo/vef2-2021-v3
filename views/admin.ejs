@@ -1,18 +1,22 @@
 <%- include('header') -%>
 
-<main>
-<h1>Undirskriftalisti - umsjón</h1>
-<p>Innskráður sem: <b><%= locals.user %></b></p>
-<a href='<%= '/admin' %>'>Útskrá</a>
-<h2>Undirskriftir</h2>
-    <p class='centered'>Fjöldi undirskrifta: <%= cnt.rows[0].count %></p>
+  <main>
+    <h1>Undirskriftalisti - umsjón</h1>
+    <p>Innskráð/ur sem: <b>
+        <%= locals.user.name %>
+      </b></p>
+    <a href='<%= '/logout' %>'>Útskrá</a>
+    <h2>Undirskriftir</h2>
+    <p class='centered'>Fjöldi undirskrifta: <%= result.count %>
+    </p>
 
     <section class='grid'>
-      <table class='col-12'>
+      <table>
         <tr>
-          <th>Dags</th>
-          <th>Nafn</th>
-          <th>Athugasemd</th>
+          <th class='col-2'>Dags</th>
+          <th class='col-2'>Nafn</th>
+          <th class='col-8'>Athugasemd</th>
+          <th class='col-2'>Eyða</th>
         </tr>
         <% result.rows.forEach(row=> { %>
           <tr>
@@ -25,9 +29,28 @@
             <td>
               <%= row.comment %>
             </td>
+            <td>
+              <form method="post" action="/delete" enctype="application/x-www-form-urlencoded">
+                <input id="number" name = "number" type=hidden value="<%= row.id %>">
+              <input id="eyda" name="eyda" type="submit" value="Eyða">
+            </form>
+            </td>
           </tr>
           <% }) %>
       </table>
-</main>
+      <div class='row'>
+        <% if (result._links.prev) { %>
+        <a href="<%= result._links.prev.href %>">Fyrri síða</a>
+        <% } else { %>
+          <p>Fyrri síða</p>
+        <% } %>
+        <p><%= result.page %>/<%= result.ceil %></p>
+        <% if (result._links.next) { %>
+          <a href="<%= result._links.next.href %>">Næsta síða</a>
+          <% } else { %>
+            <p>Næsta síða</p>
+          <% } %>
+      </div>
+  </main>
 
-<%- include('footer') -%>
+  <%- include('footer') -%>

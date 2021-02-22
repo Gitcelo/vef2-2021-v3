@@ -58,5 +58,16 @@
 }
 
 .red {
-  background-color: rgb(255, 8, 0);
+  &-back {
+    background-color: rgb(255, 8, 0);
+  }
+  &-font {
+    color:rgb(255, 8, 0);
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

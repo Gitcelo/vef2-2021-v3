@@ -26,17 +26,6 @@ pool.on('error', (err) => {
 export async function query(q, values = []) {
   const client = await pool.connect();
   const result = await client.query(q, values);
+  client.release();
   return result;
-  /*let rows = '';
-  try {
-    let result = await client.query(query, values);
-    rows = result.rows;
-  } catch (e) {
-    console.error('Error selecting', e);
-  } finally {
-    client.release();
-  }
-
-  await pool.end();
-  return rows;*/
 }

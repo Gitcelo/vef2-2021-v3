@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { Strategy } from 'passport-local';
+import { comparePasswords, findByUsername } from './users.js';
 
 
 // Hægt að útfæra passport virkni hér til að létta á app.js
@@ -19,7 +20,6 @@ export default passport;
 async function strat(username, password, done) {
   try {
     const user = await findByUsername(username);
-
     if (!user) {
       return done(null, false);
     }
@@ -41,13 +41,13 @@ passport.use(new Strategy(strat));
 
 // Geymum id á notanda í session, það er nóg til að vita hvaða notandi þetta er
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.name);
 });
 
 // Sækir notanda út frá id
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (name, done) => {
   try {
-    const user = await findById(id);
+    const user = await findByUsername(name);
     done(null, user);
   } catch (err) {
     done(err);

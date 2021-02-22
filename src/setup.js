@@ -8,7 +8,6 @@ const schemaFile2 = './sql/users.sql';
 async function mock() {
 
   for (let i = 0; i < 500; i++) {
-    console.log(i);
     let name = faker.name.findName();
     const kt = Math.floor(Math.random()*(9000000000)+1000000000);
     let ath = '';
@@ -25,7 +24,6 @@ async function mock() {
       console.log(e);
     }
   }
-  console.log('búið');
 }
 
 async function create() {

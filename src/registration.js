@@ -30,13 +30,13 @@ function valid(req, res, next) {
     cols.forEach((col) => {
       switch (col) {
         case 'nafn':
-          app.locals.color[0] = 'red';
+          app.locals.color[0] = 'red-back';
           break;
         case 'kt':
-          app.locals.color[1] = 'red';
+          app.locals.color[1] = 'red-back';
           break;
         default:
-          app.locals.color[2] = 'red';
+          app.locals.color[2] = 'red-back';
           break;
       }
     });
