@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { query } from './db.js';
 import { time, router } from './registration.js';
+import session from 'express-session';
+import passport from './login.js'
 
 dotenv.config();
 
@@ -25,6 +27,24 @@ app.locals.color = ['', '', ''];
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(session({
+  secret: 'leyndó',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  if (req.isAuthenticated()) {
+    // getum núna notað user í viewum
+    res.locals.user = req.user;
+  }
+
+  next();
+});
+
 app.get('/', (_req, res, next) => {
   if (app.locals.bool) {
     res.render('villa');
@@ -44,6 +64,17 @@ app.get('/', async (_req, res) => {
   } catch (e) {
     console.error('Error selecting', e);
   }
+});
+
+app.get('/admin', (req, res) => {
+  if(req.isAuthenticated()) {
+    res.render('admin');
+  }
+  return res.redirect('/admin/login');
+});
+
+app.get('/admin/login', (req,res) => {
+  res.render('login');
 });
 
 app.post('/post', router);

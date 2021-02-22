@@ -1,4 +1,6 @@
-CREATE TABLE IF NOT EXISTS signatures(
+DROP TABLE IF EXISTS signatures;
+
+CREATE TABLE signatures(
   id serial primary key,
   name varchar(128) not null,
   nationalId varchar(10) not null unique,

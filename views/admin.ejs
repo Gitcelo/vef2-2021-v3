@@ -1,0 +1,33 @@
+<%- include('header') -%>
+
+<main>
+<h1>Undirskriftalisti - umsjón</h1>
+<p>Innskráður sem: <b><%= locals.user %></b></p>
+<a href='<%= '/admin' %>'>Útskrá</a>
+<h2>Undirskriftir</h2>
+    <p class='centered'>Fjöldi undirskrifta: <%= cnt.rows[0].count %></p>
+
+    <section class='grid'>
+      <table class='col-12'>
+        <tr>
+          <th>Dags</th>
+          <th>Nafn</th>
+          <th>Athugasemd</th>
+        </tr>
+        <% result.rows.forEach(row=> { %>
+          <tr>
+            <td>
+              <%= locals.time(row.signed) %>
+            </td>
+            <td>
+              <%= row.name %>
+            </td>
+            <td>
+              <%= row.comment %>
+            </td>
+          </tr>
+          <% }) %>
+      </table>
+</main>
+
+<%- include('footer') -%>
