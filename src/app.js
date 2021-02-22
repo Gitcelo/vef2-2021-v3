@@ -128,12 +128,12 @@ app.post(
   async (req, res) => {
     if (req.isAuthenticated()) {
       let { page = 1 } = req.query;
-      console.log(page);
       try {
-        const result = await query('DELETE FROM signatures WHERE id = $1', [req.body.number]);
+        const result = await query('DELETE FROM signatures WHERE id = $1', [hæ]);
         return res.redirect('/admin');
       } catch (e) {
-        console.error('Error selecting', e);
+        app.locals.bool = true;
+        return res.redirect('/');
       }
     }
     res.redirect('/admin/login');
