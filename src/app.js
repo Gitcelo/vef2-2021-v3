@@ -48,7 +48,6 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (_req, res, next) => {
-  console.log('hl');
   if (app.locals.bool) {
     res.render('villa');
     app.locals.bool = false; // Eg geri mer grein fyrir ad ef ytt er a reload þa renderast skraning.
@@ -59,7 +58,6 @@ app.get('/', (_req, res, next) => {
 app.get('/', async (req, res) => {
   const { page = 1 } = req.query;
   offset = Number(page);
-
   try {
     const result = await paging(page, port);
     if (result.bool) {

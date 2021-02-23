@@ -19,6 +19,7 @@ export async function paging(offset, port, link = '') {
     const cnt = await query('SELECT COUNT(*) AS count FROM signatures');
     c = cnt.rows[0].count;
     ceiling = Math.ceil(c / 50);
+    ceiling = ceiling>0 ? ceiling : 1;
     outOfBounds = (offset > ceiling);
     result = await query('SELECT * FROM signatures ORDER BY signed DESC OFFSET $1 LIMIT $2', [(offset - 1) * 50, 50]);
   } catch (e) {
