@@ -6,12 +6,12 @@
       <form method="post" action="/login" enctype="application/x-www-form-urlencoded" class="form-section">
         <div class="form-row col-12">
           <label for="username" class="form-fsz">Notandanafn</label>
-          <input type="text" id="username" name="username" value="<%= locals.data[0] %>"
+          <input type="text" id="username" name="username" value="admin"
             class="col-10 <%= locals.color[0] %>">
         </div>
         <div class="form-row col-12">
           <label for="password" class="form-fsz">Lykilorð</label>
-          <input type="text" id="password" name="password" value="<%= locals.data[1] %>" class="col-10 <%= locals.color[1] %>">
+          <input type="password" id="password" name="password" value="123" class="col-10">
         </div>
         <p class='centered red-font'><%= locals.message %></p>
         <input type="submit" value="Innskrá" class="form-width">

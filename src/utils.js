@@ -1,15 +1,5 @@
 import { query } from './db.js';
 
-/**
- * Higher-order fall sem umlykur async middleware með villumeðhöndlun.
- *
- * @param {function} fn Middleware sem grípa á villur fyrir
- * @returns {function} Middleware með villumeðhöndlun
- */
-export function catchErrors(fn) {
-  return (req, res, next) => fn(req, res, next).catch(next);
-}
-
 export async function paging(offset, port, link = '') {
   let result = '';
   let ceiling = '';
@@ -19,7 +9,7 @@ export async function paging(offset, port, link = '') {
     const cnt = await query('SELECT COUNT(*) AS count FROM signatures');
     c = cnt.rows[0].count;
     ceiling = Math.ceil(c / 50);
-    ceiling = ceiling>0 ? ceiling : 1;
+    ceiling = ceiling > 0 ? ceiling : 1;
     outOfBounds = (offset > ceiling);
     result = await query('SELECT * FROM signatures ORDER BY signed DESC OFFSET $1 LIMIT $2', [(offset - 1) * 50, 50]);
   } catch (e) {
