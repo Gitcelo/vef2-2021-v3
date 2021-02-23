@@ -48,6 +48,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (_req, res, next) => {
+  console.log('hl');
   if (app.locals.bool) {
     res.render('villa');
     app.locals.bool = false; // Eg geri mer grein fyrir ad ef ytt er a reload þa renderast skraning.
