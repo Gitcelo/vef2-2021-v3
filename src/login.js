@@ -2,7 +2,6 @@ import passport from 'passport';
 import { Strategy } from 'passport-local';
 import { comparePasswords, findByUsername } from './users.js';
 
-
 // Hægt að útfæra passport virkni hér til að létta á app.js
 
 export default passport;

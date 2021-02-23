@@ -35,7 +35,8 @@
     "sass:build": "node-sass --source-map-embed ./src/styles/styles.scss ./public/styles.css",
     "sass:watch": "node-sass --source-map-embed --watch ./src/styles/styles.scss ./public/styles.css",
     "nodemon": "nodemon ./src/app.js",
-    "dev": "concurrently npm:nodemon npm:sass:*"
+    "dev": "concurrently npm:nodemon npm:sass:*",
+    "setup": "node ./src/setup.js"
   },
   "repository": {
     "type": "git",

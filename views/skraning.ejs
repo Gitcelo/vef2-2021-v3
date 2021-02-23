@@ -38,7 +38,8 @@
     </section>
 
     <h2>Undirskriftir</h2>
-    <p class='centered'>Fjöldi undirskrifta: <%= result.count %></p>
+    <p class='centered'>Fjöldi undirskrifta: <%= result.count %>
+    </p>
 
     <section class='grid'>
 
@@ -66,16 +67,18 @@
       </table>
       <div class='row'>
         <% if (result._links.prev) { %>
-        <a href="<%= result._links.prev.href %>">Fyrri síða</a>
-        <% } else { %>
-          <p>Fyrri síða</p>
-        <% } %>
-        <p><%= result.page %>/<%= result.ceil %></p>
-        <% if (result._links.next) { %>
-          <a href="<%= result._links.next.href %>">Næsta síða</a>
+          <a href="<%= result._links.prev.href %>">Fyrri síða</a>
           <% } else { %>
-            <p>Næsta síða</p>
-          <% } %>
+            <p>Fyrri síða</p>
+            <% } %>
+              <p>
+                <%= result.page %>/<%= result.ceil %>
+              </p>
+              <% if (result._links.next) { %>
+                <a href="<%= result._links.next.href %>">Næsta síða</a>
+                <% } else { %>
+                  <p>Næsta síða</p>
+                  <% } %>
       </div>
     </section>
 

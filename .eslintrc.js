@@ -18,6 +18,11 @@ module.exports = {
 
     'import/no-cycle': 0,
 
+    //Leyfa underscore
+    'no-underscore-dangle': "off",
+
+    'no-await-in-loop': "off",
+
     // Leyfum console.info, warn og error
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
   },

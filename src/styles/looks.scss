@@ -61,13 +61,14 @@
   &-back {
     background-color: rgb(255, 8, 0);
   }
+
   &-font {
-    color:rgb(255, 8, 0);
+    color: rgb(255, 8, 0);
   }
 }
 
 .row {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
